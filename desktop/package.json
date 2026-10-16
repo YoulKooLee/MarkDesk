@@ -1,0 +1,77 @@
+{
+  "name": "markdesk-desktop",
+  "productName": "MarkDesk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MarkDesk —— 本地离线 Markdown 轻量编辑器（桌面版）",
+  "type": "module",
+  "main": "main.cjs",
+  "author": "MarkDesk",
+  "license": "MIT",
+  "scripts": {
+    "build": "node build-renderer.mjs",
+    "start": "node run.mjs",
+    "selftest": "node run.mjs --selftest",
+    "pack": "node build-renderer.mjs && node pack.mjs",
+    "installer": "node build-renderer.mjs && electron-builder --win --arm64",
+    "zip": "node build-renderer.mjs && electron-builder --win --arm64 --config.win.target=zip"
+  },
+  "build": {
+    "appId": "com.markdesk.desktop",
+    "productName": "MarkDesk",
+    "copyright": "Copyright © 2026 MarkDesk",
+    "directories": {
+      "output": "installer"
+    },
+    "files": [
+      "**/*",
+      "!release/**",
+      "!installer*/**",
+      "!.logs/**",
+      "!renderer/**",
+      "!verify-*.json",
+      "!verify-*.cjs",
+      "!verify-*.mjs",
+      "!run.mjs",
+      "!pack.mjs",
+      "!build-renderer.mjs",
+      "!*.md"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["arm64"]
+        }
+      ],
+      "artifactName": "${productName}-${version}-Setup-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "MarkDesk",
+      "installerLanguages": ["zh_CN"],
+      "displayLanguageSelector": false,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "dependencies": {
+    "iconv-lite": "^0.7.1",
+    "katex": "^0.19.0",
+    "lucide-react": "0.562.0",
+    "mermaid": "^12.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@electron/packager": "^18.4.4",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "electron": "44.4.3",
+    "electron-builder": "^26.15.3",
+    "esbuild": "0.21.5"
+  }
+}

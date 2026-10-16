@@ -1,0 +1,10 @@
+node_modules/
+dist/
+release/
+installer/
+installer-*/
+.logs/
+verify-*.json
+verify-*.cjs
+verify-*.mjs
+*.log
