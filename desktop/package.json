@@ -41,7 +41,9 @@
       "target": [
         {
           "target": "nsis",
-          "arch": ["arm64"]
+          "arch": [
+            "arm64"
+          ]
         }
       ],
       "artifactName": "${productName}-${version}-Setup-${arch}.${ext}"
@@ -53,25 +55,28 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "MarkDesk",
-      "installerLanguages": ["zh_CN"],
+      "installerLanguages": [
+        "zh_CN"
+      ],
       "displayLanguageSelector": false,
       "deleteAppDataOnUninstall": false
     }
   },
   "dependencies": {
-    "iconv-lite": "^0.7.1",
-    "katex": "^0.19.0",
-    "lucide-react": "0.562.0",
-    "mermaid": "^12.2.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "iconv-lite": "^0.7.1"
   },
   "devDependencies": {
+    "@electron/fuses": "^2.1.3",
     "@electron/packager": "^18.4.4",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "electron": "44.4.3",
     "electron-builder": "^26.15.3",
-    "esbuild": "0.21.5"
+    "esbuild": "0.21.5",
+    "katex": "^0.19.0",
+    "lucide-react": "0.562.0",
+    "mermaid": "^12.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   }
 }

@@ -84,6 +84,8 @@ async function main() {
   const stripped = stripSelfLinks();
   console.log('[pack] 摘除自引用软链：' + (stripped.length ? stripped.join(', ') : '（无）'));
 
+  const pkg = JSON.parse(fs.readFileSync(path.join(HERE, 'package.json'), 'utf8'));
+
   const [appPath] = await packager({
     dir: HERE,
     out: OUT_DIR,
@@ -93,11 +95,12 @@ async function main() {
     overwrite: true,
     asar: true,
     prune: true,
-    appVersion: '0.1.0',
+    appVersion: pkg.version,
     ignore: [
       /^\/\.logs/,
       /^\/release/,
       /^\/renderer/,
+      /^\/installer/,
       /^\/build-renderer\.mjs$/,
       /^\/run\.mjs$/,
       /^\/pack\.mjs$/,
@@ -111,6 +114,10 @@ async function main() {
       // 必须排除，否则 prune 阶段报 Failed to locate module。
       /^\/node_modules\/\.package-lock\.json$/,
       /^\/node_modules\/@axhub/,
+      // 运行时只依赖 iconv-lite（renderer.js 已由 esbuild 全量 bundle react/katex/mermaid 等），
+      // node_modules 其余全部不进包，否则 app.asar 会膨胀数百 MB（v0.1.1 实测 111MB→546MB）。
+      // 注意：iconv-lite 运行时依赖 safer-buffer，必须一并保留，否则主进程 require 失败。
+      /^\/node_modules\/(?!iconv-lite(\/|$)|safer-buffer(\/|$))/,
     ],
     win32metadata: {
       CompanyName: 'MarkDesk',
