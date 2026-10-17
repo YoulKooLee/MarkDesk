@@ -266,7 +266,10 @@ interface BlockResult {
 }
 
 function renderBlocks(src: string, offset: number): BlockResult {
-  const lines = src.split('\n');
+  // 行尾归一化：CRLF（\r\n）与孤立 \r 统一转 \n。v0.1.0 死循环根因——
+  // 标题等「全行锚定正则」因行尾残留 \r 匹配失败（. 不匹配 \r、$ 不匹配 \r 前），
+  // 而块边界检测用前缀正则命中「标题」→ 行指针不前进 → 无限循环。
+  const lines = src.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
   const out: string[] = [];
   let i = 0;
 
@@ -332,7 +335,8 @@ function renderBlocks(src: string, offset: number): BlockResult {
       continue;
     }
 
-    const heading = line.match(/^(#{1,6})\s+(.*)$/);
+    // 标题：.*? 非贪婪 + \s* 兜底行尾 \r，与 renderBlocks 行尾归一化双保险（v0.1.0 死循环修复）
+    const heading = line.match(/^(#{1,6})\s+(.*?)\s*$/);
     if (heading) {
       const level = heading[1].length;
       const inner = renderInline(heading[2].replace(/\s+#+\s*$/, ''));

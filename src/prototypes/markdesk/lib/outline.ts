@@ -9,7 +9,7 @@ export interface OutlineNode {
   line: number;
 }
 
-const HEADING_RE = /^(#{1,6})\s+(.*)$/;
+const HEADING_RE = /^(#{1,6})\s+(.*?)\s*$/;
 
 /**
  * 按 ATX 标题提取层级；围栏代码块内的 `#` 不算标题。
@@ -17,7 +17,8 @@ const HEADING_RE = /^(#{1,6})\s+(.*)$/;
  */
 export function extractOutline(source: string): OutlineNode[] {
   const nodes: OutlineNode[] = [];
-  const lines = source.split('\n');
+  // 行尾归一化（CRLF→LF）：与 markdown.ts renderBlocks 同口径，保证标题正则稳定匹配
+  const lines = source.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
   let inFence = false;
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];

@@ -36,8 +36,8 @@ node run.mjs --selftest     # 端到端自检：截屏 + IPC 全链路 + 原生�
 node verify-ui.mjs          # UI 交互实测（截图与断言进 .logs/ui/）
 node pack.mjs               # 打包 ARM64 免安装版 → release/MarkDesk-win32-arm64/
 $env:MARKDESK_TARGET_ARCH='x64'; node pack.mjs   # 打包 x64 免安装版 → release/MarkDesk-win32-x64/
-makensis /DARCH=arm64 MarkDesk.nsi   # ARM64 安装包 → installer/MarkDesk-0.1.0-Setup-arm64.exe
-makensis /DARCH=x64 MarkDesk.nsi     # x64 安装包 → installer/MarkDesk-0.1.0-Setup-x64.exe
+makensis /DARCH=arm64 MarkDesk.nsi   # ARM64 安装包 → installer/MarkDesk-0.1.1-Setup-arm64.exe
+makensis /DARCH=x64 MarkDesk.nsi     # x64 安装包 → installer/MarkDesk-0.1.1-Setup-x64.exe
 ```
 
 > **makensis 注意**：来自 NSIS 3.10（portable）。makensis 不支持中文路径，
@@ -81,5 +81,5 @@ makensis /DARCH=x64 MarkDesk.nsi     # x64 安装包 → installer/MarkDesk-0.1.
 ## 已知边界
 
 - 系统文件对话框（打开/另存为/导出位置）无法无头自动化，属**人工验收项**；同源的写盘/读取接口由 `--selftest` 覆盖。
-- 安装包（`installer/MarkDesk-0.1.0-Setup-arm64.exe` 与 `-x64.exe`）已可用且实测完整；文件关联未做。
+- 安装包（`installer/MarkDesk-0.1.1-Setup-arm64.exe` 与 `-x64.exe`）已可用且实测完整；文件关联未做。
 - 未做签名，首次运行可能触发 SmartScreen 提示。

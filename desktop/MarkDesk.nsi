@@ -4,7 +4,7 @@
 ; 编译（需在纯 ASCII 路径下，makensis 不支持中文路径）：
 ;   makensis.exe /DARCH=arm64 MarkDesk.nsi   （默认 arm64）
 ;   makensis.exe /DARCH=x64 MarkDesk.nsi
-; 产物：installer\MarkDesk-0.1.0-Setup-${ARCH}.exe
+; 产物：installer\MarkDesk-0.1.1-Setup-${ARCH}.exe
 
 Unicode true
 Name "MarkDesk"
@@ -13,7 +13,7 @@ Name "MarkDesk"
   !define ARCH "arm64"
 !endif
 
-OutFile "installer\MarkDesk-0.1.0-Setup-${ARCH}.exe"
+OutFile "installer\MarkDesk-0.1.1-Setup-${ARCH}.exe"
 InstallDir "$LOCALAPPDATA\Programs\MarkDesk"
 RequestExecutionLevel user
 SetCompressor lzma
@@ -46,7 +46,7 @@ Section "install" SecMain
   ; 卸载器与注册表卸载项（HKCU，无需管理员）
   WriteUninstaller "$INSTDIR\Uninstall.exe"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\MarkDesk" "DisplayName" "MarkDesk"
-  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\MarkDesk" "DisplayVersion" "0.1.0"
+  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\MarkDesk" "DisplayVersion" "0.1.1"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\MarkDesk" "Publisher" "MarkDesk"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\MarkDesk" "InstallLocation" "$INSTDIR"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\MarkDesk" "DisplayIcon" "$INSTDIR\MarkDesk.exe"

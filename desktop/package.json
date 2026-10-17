@@ -1,7 +1,7 @@
 {
   "name": "markdesk-desktop",
   "productName": "MarkDesk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "MarkDesk —— 本地离线 Markdown 轻量编辑器（桌面版）",
   "type": "module",
